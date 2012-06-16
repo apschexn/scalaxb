@@ -2,7 +2,7 @@ import sbt._
 
 object Builds extends Build {
   import Keys._
-  import ls.Plugin.LsKeys._
+  import ls.Plugin.{LsKeys => lskeys}
   import sbtbuildinfo.Plugin._
   import sbtscalashim.Plugin._
 
@@ -42,9 +42,8 @@ object Builds extends Build {
   )
 
   lazy val customLsSettings = _root_.ls.Plugin.lsSettings ++ Seq(
-    licenses in lsync <<= licenses,
-    tags in lsync := Seq("xml", "soap", "wsdl", "code-generation"),
-    (externalResolvers in lsync) := Seq(
+    lskeys.tags in lskeys.lsync := Seq("xml", "soap", "wsdl", "code-generation"),
+    (externalResolvers in lskeys.lsync) := Seq(
       "sonatype-public" at "https://oss.sonatype.org/content/repositories/public",
       "repo.codahale.com" at "http://repo.codahale.com")
   )
@@ -111,7 +110,7 @@ object Builds extends Build {
 //  import ScriptedPlugin._
   lazy val pluginSettings = buildSettings ++ Seq(
     sbtPlugin := true,
-    description in lsync := """sbt plugin to run scalaxb""",
+    description in lskeys.lsync := """sbt plugin to run scalaxb""",
     crossScalaVersions := Seq("2.9.1"),
     publishMavenStyle := true) // ++
 //    ScriptedPlugin.scriptedSettings ++ Seq(
